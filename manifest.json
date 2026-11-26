@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "DualSubs — двойные субтитры для subtitle.love",
+  "version": "1.3.0",
+  "description": "Оригинал и перевод одновременно, клик по словам, словарь и панель диалогов — как у 2SUB, но на subtitle.love.",
+  "permissions": ["activeTab", "storage", "scripting", "tabs"],
+  "host_permissions": [
+    "*://*.subtitle.love/*",
+    "*://gencit.info/*",
+    "*://*.gencit.info/*",
+    "*://cdnlbox.club/*",
+    "*://*.cdnlbox.club/*",
+    "*://api.embf.net/*",
+    "*://*.embf.net/*",
+    "*://ceramet.net/*",
+    "*://*.ceramet.net/*",
+    "*://*.interkh.com/*",
+    "*://translate.googleapis.com/*",
+    "*://api.mymemory.translated.net/*",
+    "*://dictionaryapi.dev/*"
+  ],
+  "optional_host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "DualSubs"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.subtitle.love/*"],
+      "js": ["content-main.js"],
+      "css": ["main.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://gencit.info/*",
+        "*://*.gencit.info/*",
+        "*://cdnlbox.club/*",
+        "*://*.cdnlbox.club/*",
+        "*://api.embf.net/*",
+        "*://*.embf.net/*"
+      ],
+      "js": ["content-player.js"],
+      "css": ["player.css"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}

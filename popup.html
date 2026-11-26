@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DualSubs</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark">2</span>
+      <div>
+        <strong>DualSubs</strong>
+        <small>двойные субтитры для subtitle.love</small>
+      </div>
+    </div>
+    <div id="status" class="status">Проверяю плеер…</div>
+  </header>
+
+  <nav class="tabs">
+    <button type="button" class="tab-btn is-active" data-tab="settings">Настройки</button>
+    <button type="button" class="tab-btn" data-tab="dictionary">Словарь</button>
+    <button type="button" class="tab-btn" data-tab="help">Справка</button>
+  </nav>
+
+  <section class="tab is-active" id="tab-settings">
+    <div class="group-title">Дорожки</div>
+    <label class="switch-row">
+      <span><b>Оригинал (EN)</b><small>Английский текст сверху</small></span>
+      <input type="checkbox" id="showOriginal">
+    </label>
+    <label class="switch-row">
+      <span><b>Перевод (RU)</b><small>Русский текст снизу</small></span>
+      <input type="checkbox" id="showTranslation">
+    </label>
+    <label class="switch-row">
+      <span><b>Скрыть родные субтитры</b><small>Чтобы не дублировался текст плеера</small></span>
+      <input type="checkbox" id="hideNative">
+    </label>
+    <label class="switch-row">
+      <span><b>Клик по слову</b><small>Перевод, озвучка, словарь</small></span>
+      <input type="checkbox" id="wordTranslation">
+    </label>
+    <label class="switch-row">
+      <span><b>Пауза при наведении</b><small>Ставит на паузу, пока курсор на слове</small></span>
+      <input type="checkbox" id="pauseOnHover">
+    </label>
+    <label class="switch-row">
+      <span><b>Перевод через API</b><small>Если у эпизода нет русской дорожки</small></span>
+      <input type="checkbox" id="autoTranslate">
+    </label>
+    <label class="switch-row">
+      <span><b>Панель диалогов при открытии</b><small>Показывать расшифровку сразу</small></span>
+      <input type="checkbox" id="transcriptOpen">
+    </label>
+
+    <div class="group-title">Внешний вид</div>
+    <div class="slider-row">
+      <label for="fontSize">Размер текста <output id="fontSizeOut">24</output> px</label>
+      <input type="range" id="fontSize" min="14" max="48" step="1">
+    </div>
+    <div class="slider-row">
+      <label for="bgOpacity">Задний фон <output id="bgOpacityOut">55</output>%</label>
+      <input type="range" id="bgOpacity" min="0" max="90" step="1">
+    </div>
+    <div class="slider-row">
+      <label for="bottomOffset">Отступ снизу <output id="bottomOffsetOut">12</output> px</label>
+      <input type="range" id="bottomOffset" min="0" max="160" step="2">
+    </div>
+    <div class="slider-row">
+      <label for="subtitleHold">Держать текст ещё <output id="subtitleHoldOut">2</output> с</label>
+      <input type="range" id="subtitleHold" min="0" max="5" step="0.5">
+    </div>
+    <div class="slider-row">
+      <label for="cueLines">Реплик одновременно <output id="cueLinesOut">2</output></label>
+      <input type="range" id="cueLines" min="1" max="3" step="1">
+    </div>
+    <div class="color-row">
+      <label>Оригинал <input type="color" id="originalColor"></label>
+      <label>Перевод <input type="color" id="translationColor"></label>
+    </div>
+
+    <div class="group-title">Синхронизация</div>
+    <div class="offset-row">
+      <span>Сдвиг субтитров: <b id="offset-value">0.0 с</b></span>
+      <div class="offset-buttons">
+        <button type="button" data-offset="-2">−2 с</button>
+        <button type="button" data-offset="-0.5">−0.5 с</button>
+        <button type="button" data-offset="0.5">+0.5 с</button>
+        <button type="button" data-offset="2">+2 с</button>
+        <button type="button" id="offset-reset">Сбросить</button>
+      </div>
+      <small>Текст опережает звук → минус; опаздывает → плюс. Hotkeys: Alt+← / Alt+→ (с Shift — по 2 с).</small>
+    </div>
+
+    <div class="button-row">
+      <button type="button" id="open-transcript" class="primary">Открыть диалоги</button>
+      <button type="button" id="reset-settings">Сбросить</button>
+    </div>
+
+    <details class="manual-import">
+      <summary>Свои субтитры (.srt / .vtt)</summary>
+      <p>Если дорожки не нашлись или нужны другие, загрузите файлы вручную.</p>
+      <label>EN файл <input type="file" id="file-en" accept=".vtt,.srt,text/vtt"></label>
+      <label>RU файл <input type="file" id="file-ru" accept=".vtt,.srt,text/vtt"></label>
+      <button type="button" id="import-tracks">Загрузить в плеер</button>
+      <div id="import-status" class="hint"></div>
+    </details>
+  </section>
+
+  <section class="tab" id="tab-dictionary">
+    <div class="dict-add">
+      <input type="text" id="dict-word" placeholder="Слово или фраза">
+      <input type="text" id="dict-translation" placeholder="Перевод">
+      <button type="button" id="dict-add-btn" class="primary">Добавить</button>
+    </div>
+    <input type="search" id="dict-search" placeholder="Поиск по словарю">
+    <div id="dict-list" class="dict-list"></div>
+    <div class="button-row">
+      <button type="button" id="dict-export">Экспорт JSON</button>
+      <button type="button" id="dict-import">Импорт JSON</button>
+      <button type="button" id="dict-clear" class="danger">Очистить</button>
+      <input type="file" id="dict-import-file" accept=".json,application/json" hidden>
+    </div>
+  </section>
+
+  <section class="tab" id="tab-help">
+    <h3>Как пользоваться</h3>
+    <ol>
+      <li>Откройте страницу сериала на subtitle.love и нажмите «Смотреть».</li>
+      <li>Включите английские субтитры в плеере — расширение подхватит обе дорожки автоматически.</li>
+      <li><b>Наведите</b> на английское слово — перевод появится сразу, видео встанет на паузу. Клик открывает карточку с озвучкой и словарём.</li>
+      <li><b>Выделите фразу</b> в субтитре или нажмите «Ф» — переведём её целиком.</li>
+      <li>Кнопка «Д» или <kbd>Alt+T</kbd> открывает панель диалогов. В полноэкранном режиме она слева.</li>
+      <li>Если субтитры идут не в такт со звуком, сдвиньте их в «Настройки → Синхронизация» или клавишами <kbd>Alt+← / →</kbd>.</li>
+    </ol>
+    <h3>Горячие клавиши</h3>
+    <div class="hotkeys">
+      <div><kbd>Alt+S</kbd> оригинал</div>
+      <div><kbd>Alt+D</kbd> перевод</div>
+      <div><kbd>Alt+T</kbd> диалоги</div>
+      <div><kbd>Alt+↑ / ↓</kbd> размер текста</div>
+      <div><kbd>Alt+H</kbd> скрыть/показать родные субтитры</div>
+      <div><kbd>Alt+← / →</kbd> сдвиг субтитров на 0.5 с</div>
+      <div><kbd>Alt+Shift+← / →</kbd> сдвиг на 2 с</div>
+    </div>
+    <h3>Откуда берутся переводы</h3>
+    <p>Сначала используется русская дорожка самого плеера. Если её нет, фраза переводится через публичный API и кэшируется локально. Словарь хранится только в вашем браузере.</p>
+    <h3>Установка</h3>
+    <p>Яндекс.Браузер → <code>yandex://extensions</code> → «Режим разработчика» → «Загрузить распакованное расширение» → выберите папку <code>dualsubs-extension</code>.</p>
+  </section>
+
+  <footer class="app-footer">Работает с gencit.info, cdnlbox.club и api.embf.net</footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

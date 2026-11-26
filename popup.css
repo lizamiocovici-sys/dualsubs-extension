@@ -1,0 +1,404 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 360px;
+  margin: 0;
+  font: 13px/1.45 Inter, Arial, sans-serif;
+  color: #f2f2f2;
+  background: #17171a;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #2b2418, #1c1c20);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #ffd54f;
+  color: #1b1b1b;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.brand strong {
+  display: block;
+  font-size: 15px;
+}
+
+.brand small {
+  display: block;
+  color: #aaa;
+  font-size: 11px;
+}
+
+.status {
+  max-width: 135px;
+  font-size: 11px;
+  color: #bdbdbd;
+  text-align: right;
+}
+
+.status.ok {
+  color: #9ccc65;
+}
+
+.status.warn {
+  color: #ffb74d;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 9px 4px;
+  border: 0;
+  background: transparent;
+  color: #aaa;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab-btn.is-active {
+  color: #ffd54f;
+  box-shadow: inset 0 -2px 0 #ffd54f;
+}
+
+.tab {
+  display: none;
+  padding: 12px 14px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.tab.is-active {
+  display: block;
+}
+
+.group-title {
+  margin: 6px 0 8px;
+  color: #8e8e8e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.switch-row b {
+  display: block;
+  font-weight: 600;
+}
+
+.switch-row small {
+  display: block;
+  color: #909090;
+  font-size: 11px;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #ffd54f;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.slider-row {
+  margin: 10px 0;
+}
+
+.slider-row label {
+  display: flex;
+  justify-content: space-between;
+  color: #c9c9c9;
+  margin-bottom: 4px;
+}
+
+.slider-row output {
+  color: #ffd54f;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #ffd54f;
+}
+
+.color-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.color-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #c9c9c9;
+}
+
+input[type="color"] {
+  width: 42px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 7px;
+  padding: 7px 10px;
+  background: #28282d;
+  color: #eee;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #34343a;
+}
+
+button.primary {
+  background: #ffd54f;
+  border-color: #ffd54f;
+  color: #1b1b1b;
+  font-weight: 700;
+}
+
+button.primary:hover {
+  background: #ffe082;
+}
+
+button.danger {
+  color: #ff8a80;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.offset-row {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.offset-row > span {
+  display: block;
+  color: #c9c9c9;
+}
+
+.offset-row b {
+  color: #ffd54f;
+  font-variant-numeric: tabular-nums;
+}
+
+.offset-row small {
+  display: block;
+  margin-top: 6px;
+  color: #8e8e8e;
+  font-size: 11px;
+}
+
+.offset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.offset-buttons button {
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
+.manual-import {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.manual-import summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.manual-import p,
+.hint {
+  color: #909090;
+  font-size: 11px;
+}
+
+.manual-import label {
+  display: block;
+  margin: 8px 0;
+  color: #c9c9c9;
+}
+
+.manual-import input[type="file"] {
+  display: block;
+  margin-top: 4px;
+  max-width: 100%;
+  font-size: 11px;
+}
+
+.dict-add {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.dict-add input,
+#dict-search {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 7px;
+  background: #222226;
+  color: #fff;
+  font: inherit;
+  outline: none;
+}
+
+.dict-add input:focus,
+#dict-search:focus {
+  border-color: #ffd54f;
+}
+
+.dict-add button {
+  grid-column: 1 / -1;
+}
+
+#dict-search {
+  margin-bottom: 8px;
+}
+
+.dict-list {
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+.dict-item {
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 7px;
+  background: #222226;
+}
+
+.dict-word {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 700;
+  color: #ffd54f;
+}
+
+.dict-translation {
+  color: #eee;
+  margin-top: 2px;
+}
+
+.dict-context {
+  margin-top: 4px;
+  color: #8e8e8e;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.dict-delete {
+  padding: 1px 6px;
+  font-size: 12px;
+  color: #ff8a80;
+}
+
+.dict-empty {
+  color: #909090;
+  padding: 18px 4px;
+  text-align: center;
+}
+
+#tab-help h3 {
+  margin: 14px 0 6px;
+  font-size: 13px;
+  color: #ffd54f;
+}
+
+#tab-help ol {
+  margin: 0;
+  padding-left: 18px;
+  color: #cfcfcf;
+}
+
+#tab-help li {
+  margin-bottom: 5px;
+}
+
+#tab-help p {
+  color: #b5b5b5;
+}
+
+.hotkeys {
+  display: grid;
+  gap: 4px;
+  color: #cfcfcf;
+}
+
+kbd,
+code {
+  padding: 1px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: #27272c;
+  font: 11px Consolas, monospace;
+  color: #ffe082;
+}
+
+.app-footer {
+  padding: 8px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #777;
+  font-size: 10px;
+}
